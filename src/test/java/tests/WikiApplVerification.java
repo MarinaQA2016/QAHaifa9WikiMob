@@ -55,6 +55,42 @@ public class WikiApplVerification {
 
     }
 
+    @Test
+    public void searchAndPutToReadingList() throws InterruptedException {
+        Thread.sleep(3000);
+        WebElement searchField = driver.findElement(By.xpath("//*[@resource-id='org.wikipedia:id/search_container']"));
+        searchField.click();
+        Thread.sleep(3000);
+        driver.findElement(By.id("org.wikipedia:id/search_src_text")).sendKeys("Java");
+        Thread.sleep(3000);
+        driver.findElement(By.id("org.wikipedia:id/page_list_item_container")).click();
+        Thread.sleep(3000);
+        // --- save link to article ----
+        driver.findElement(By
+                .xpath("//android.widget.ImageView[@content-desc='Add this article to a reading list']")).click();
+        Thread.sleep(3000);
+        // ---- press 'GOT IT' button ----
+        driver.findElement(By.id("org.wikipedia:id/onboarding_button")).click();
+        Thread.sleep(3000);
+        //---- press 'OK' button -----
+        driver.findElement(By.id("android:id/button1")).click();
+        Thread.sleep(3000);
+        driver.navigate().back();
+        driver.findElement(By
+                .xpath("//android.widget.FrameLayout[@content-desc='My lists']/android.widget.ImageView")).click();
+        Thread.sleep(3000);
+        //  ---- open 'My Reading' list ------
+        driver.findElement(By.id("org.wikipedia:id/item_container")).click();
+        Thread.sleep(3000);
+        Assert.assertEquals("Java",driver.findElement(By.id("org.wikipedia:id/page_list_item_title")).getText());
+        Assert.assertEquals("island of Indonesia", driver.findElement(By.id("org.wikipedia:id/page_list_item_description")).getText());
+
+
+
+
+
+    }
+
     @AfterMethod
     public void tearDown(){
         driver.quit();
