@@ -124,4 +124,8 @@ public class PageBase {
     public void runBackGround(int time) {
         ((AppiumDriver) driver).runAppInBackground(Duration.ofSeconds(time));
     }
+
+    public void returnBack(){
+        driver.navigate().back();
+    }
 }

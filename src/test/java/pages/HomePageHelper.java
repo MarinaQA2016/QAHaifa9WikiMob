@@ -19,6 +19,10 @@ public class HomePageHelper extends PageBase{
     WebElement firstArticleTitle;
     @FindBy(id = "org.wikipedia:id/page_list_item_description")
     WebElement firstArticleDescription;
+    @FindBy (xpath = "//android.widget.FrameLayout[@content-desc='My lists']/android.widget.ImageView")
+    WebElement myListsListIcon;
+    @FindBy(id = "org.wikipedia:id/item_container")
+    WebElement myFirstList;
 
     public HomePageHelper(WebDriver driver){
         this.driver=driver;
@@ -36,6 +40,11 @@ public class HomePageHelper extends PageBase{
         waitUntilElementIsClickable(searchFieldReal,5);
         searchFieldReal.sendKeys(text);
         waitUntilElementIsClickable(firstArticle,10);
+    }
+    public void openMyFirstList(){
+        myListsListIcon.click();
+        waitUntilElementIsClickable(myFirstList,10);
+        myFirstList.click();
     }
 
     public String getFirstArticleTitle(){
