@@ -15,7 +15,7 @@ public class TestBase {
     public AppiumDriver driver;
     HomePageHelper homePage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void startUp() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
@@ -34,7 +34,7 @@ public class TestBase {
         homePage.waitUntilPageIsLoaded();
 
     }
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(){
         driver.quit();
     }

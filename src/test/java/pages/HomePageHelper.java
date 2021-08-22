@@ -1,7 +1,10 @@
 package pages;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -58,6 +61,7 @@ public class HomePageHelper extends PageBase{
     public void firstFoundArticleOpen() {
         firstArticle.click();
     }
+
 
 
 }

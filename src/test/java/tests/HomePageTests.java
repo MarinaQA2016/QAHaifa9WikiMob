@@ -21,7 +21,7 @@ public class HomePageTests extends TestBase{
  ArticlePageHelper articlePage;
  MyReadingListHelper myReadingList;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void initTests(){
         articlePage = PageFactory.initElements(driver, ArticlePageHelper.class);
         myReadingList = PageFactory.initElements(driver, MyReadingListHelper.class);
@@ -48,6 +48,15 @@ public class HomePageTests extends TestBase{
 
         Assert.assertEquals("Java", articlePage.getArticleTitle());
         Assert.assertEquals("Indonesian island",articlePage.getArticleDescription());
+
+    }
+    @Test
+    public void searchByTextAndSwipeUp(){
+        homePage.searchBy("Java");
+        homePage.returnBack();
+        //homePage.swipeUp();
+        //homePage.swipeDown();
+        homePage.swipeUpToElement(By.xpath("//*[@text = 'History of Indonesia']"),10);
 
     }
 
@@ -90,6 +99,26 @@ public class HomePageTests extends TestBase{
         myReadingList.waitUntilPageIsLoaded();
         Assert.assertEquals("Java",myReadingList.getFirstTitleOffListText());
         Assert.assertEquals("island of Indonesia", myReadingList.getFirstDescriptionOffList());
+
+    }
+
+    @Test (groups = {"smoke", "regression"})
+    public void searchPutToReadingListAndDelete()  {
+        homePage.searchBy("Java");
+        homePage.firstFoundArticleOpen();
+
+        articlePage.waitUntilPageIsLoaded();
+        articlePage.putToReadingList();
+        articlePage.waitUntilPageIsLoaded();
+        articlePage.returnBack();
+        homePage.waitUntilPageIsLoaded();
+        homePage.openMyFirstList();
+        myReadingList.waitUntilPageIsLoaded();
+        Assert.assertEquals("Java",myReadingList.getFirstTitleOffListText());
+        Assert.assertEquals("island of Indonesia", myReadingList.getFirstDescriptionOffList());
+
+        myReadingList.deleteFirstArticle();
+
 
     }
 

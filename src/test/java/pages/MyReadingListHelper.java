@@ -9,6 +9,8 @@ import java.util.List;
 public class MyReadingListHelper extends PageBase{
     @FindBy(xpath = "org.wikipedia:id/page_list_item_container")
     List<WebElement> myListElementList;
+    @FindBy (xpath = "org.wikipedia:id/page_list_item_container")
+    WebElement firstArticle;
     @FindBy(id = "org.wikipedia:id/page_list_item_title")
     WebElement firstTitleOffList;
     @FindBy(id= "org.wikipedia:id/page_list_item_description")
@@ -19,7 +21,7 @@ public class MyReadingListHelper extends PageBase{
     }
 
     public void waitUntilPageIsLoaded(){
-        waitUntilAllElementsAreVisible( myListElementList,10);
+        waitUntilElementIsVisible( firstTitleOffList,10);
     }
     public String getFirstTitleOffListText(){
         waitUntilElementIsVisible(firstTitleOffList,5);
@@ -28,5 +30,10 @@ public class MyReadingListHelper extends PageBase{
     public String getFirstDescriptionOffList(){
         waitUntilElementIsVisible(firstDescriptionOffList,5);
         return  firstDescriptionOffList.getText();
+    }
+
+    public void deleteFirstArticle() {
+        int y = firstTitleOffList.getLocation().y + (int)(firstTitleOffList.getSize().height*0.5);
+        swipeLeft(y);
     }
 }

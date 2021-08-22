@@ -49,6 +49,7 @@ public class ArticlePageHelper extends PageBase{
 
     }
 
+
     public void openThreePointsMenu() {
         waitUntilElementIsClickable(threePointsMenu,5);
         threePointsMenu.click();

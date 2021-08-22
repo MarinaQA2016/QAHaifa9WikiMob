@@ -1,10 +1,9 @@
 package pages;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -127,5 +126,53 @@ public class PageBase {
 
     public void returnBack(){
         driver.navigate().back();
+    }
+    public void swipeUp() {
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        TouchAction action = new TouchAction(appDriver);
+        Dimension size = driver.manage().window().getSize();
+        int x = (int) (size.width*0.5);
+        int y1 = (int) (size.height * 0.8);
+        int y2 = (int) (size.height*0.2);
+        action.press(PointOption.point(x,y1))
+                .waitAction()
+                .moveTo(PointOption.point(x,y2))
+                .release()
+                .perform();
+
+    }
+    public void swipeDown() {
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        TouchAction action = new TouchAction(appDriver);
+        Dimension size = driver.manage().window().getSize();
+        int x = (int) (size.width*0.5);
+        int y1 = (int) (size.height*0.2);
+        int y2 = (int) (size.height * 0.8);
+        action.press(PointOption.point(x,y1))
+                .waitAction()
+                .moveTo(PointOption.point(x,y2))
+                .release()
+                .perform();
+
+    }
+    public void swipeLeft(int y){
+        AppiumDriver appDriver = (AppiumDriver) driver;
+        TouchAction action = new TouchAction(appDriver);
+        Dimension size = driver.manage().window().getSize();
+        int x1 = (int) (size.width * 0.8);
+        int x2 = (int) (size.width * 0.2);
+        action.press(PointOption.point(x1,y))
+                .waitAction()
+                .moveTo(PointOption.point(x2,y))
+                .release()
+                .perform();
+    }
+
+    public void swipeUpToElement(By locator, int maxTime){
+        int counter = 0;
+        while (counter < maxTime && driver.findElements(locator).size()==0){
+            swipeUp();
+            counter++;
+        }
     }
 }
